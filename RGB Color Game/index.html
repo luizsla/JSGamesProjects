@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="This is a simple RGB color game. The player
+      has to guess what color corresponds to the value given on the top.">
+    <meta name="author" content="Luiz Eduardo Amorim">
+    <meta name="keywords" content="Color, Game, guess the color, HTML, CSS">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Game | Luiz Eduardo Amorim</title>
+
+    <link rel="stylesheet" href="assets/normalize.css">
+    <link rel="stylesheet" href="assets/style.css">
+     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <h1>The great <div id="colorToBeGuessed">RGB(255, 255, 255)</div> guessing game</h1>
+      <div class="container">
+        <div class="inner-container">
+          <a href="#" id="resetGame">New colors</a>
+          <span id="statusOfGuess" class="statusOfGuess"></span>
+          <ul>
+            <li><a href="#" class="mode">Easy</a></li>
+            <li><a href="#" class="mode selected">Hard</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color"></div>
+      <div class="color hard-mode"></div>
+      <div class="color hard-mode"></div>
+      <div class="color hard-mode"></div>
+    </main>
+    <script src="assets/colorGame.js"></script>
+    <script src="assets/colorGameRestart.js"></script>
+    <script src="assets/colorGameInit.js"></script>
+  </body>
+</html>

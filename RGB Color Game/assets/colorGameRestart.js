@@ -20,6 +20,7 @@ reset.addEventListener("click", function(event) {
   this.style.color = "#396afc";
 });
 
+//Function that displays all grids to the color elements on call.
 function displayColorGridBack() {
   var colorContainers = document.querySelectorAll(".color");
   for (let index = 0; index < colorContainers.length; index++) {

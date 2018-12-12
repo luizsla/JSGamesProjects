@@ -1,10 +1,14 @@
-//Function Calls for first start.
-var colors = createRandomColors(6);
-assignColors();
-var chosenColor = defineChosenColor(5);
-displayChosenColor(chosenColor);
-compareChosenColorAndPickedColor();
+//States colors and chosen colors.
+var colors = createRandomColors(6),
+    chosenColor = defineChosenColor(5),
+    reset = document.querySelector("#resetGame");
 
+//Function Calls for the first start.
+(function() {
+  assignColors();
+  displayChosenColor(chosenColor);
+  compareChosenColorAndPickedColor();
+})();
 
 //Function that initiates easyMode.
 function initEasyMode() {

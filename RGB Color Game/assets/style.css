@@ -58,17 +58,16 @@ ul {
 }
 
 main {
-  max-width: 750px;
+  max-width: 880px;
   margin: 0 auto;
+  padding: 1rem;
 }
 
 .color {
   height: 175px;
-  width: 30%;
-  float: left;
-  margin: 2rem 1.66% 0px 1.66%;
-  background: red;
   border-radius: 10%;
+  margin: 1rem;
+  cursor: pointer;
 }
 
 .mode {

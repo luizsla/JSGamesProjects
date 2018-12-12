@@ -11,7 +11,7 @@ function createRandomColors(nColors) {
 }
 
 //Function that assgns the random colors array to the squares.
-function assignColors(mode) {
+function assignColors() {
   var colorContainers = document.querySelectorAll(".color");
   for (var i = 0; i < colors.length; i++) {
     colorContainers[i].style.backgroundColor = colors[i];
@@ -61,7 +61,7 @@ function displayErrorMessage() {
 
 //Fades in picked square if the same is not igual, in value, to the chosen color.
 function fadeInColor(colorContainer) {
-  colorContainer.style.backgroundColor = "rgba(0, 0, 0, 0)";
+  colorContainer.parentNode.style.display = "none";
 }
 
 //Display sucsess messagem in casa used guessed the chosen color correctly.
@@ -89,9 +89,8 @@ function changeSquaresBackground(color) {
 //Asks if the player wants to play a new game.
   // Case: Yes -> Sets up a new game.
 function askForANewGame() {
-  var resetButton = document.querySelector("#resetGame");
-  resetButton.textContent = "New Game?";
-  resetButton.style.color = "green";
+  reset.textContent = "New Game?";
+  reset.style.color = "green";
 }
 
 //Function that returns a random number between two specified values.

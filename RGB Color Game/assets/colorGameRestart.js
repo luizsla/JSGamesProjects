@@ -1,18 +1,30 @@
-//Listener to the "New Colors" button.
-var reset = document.querySelector("#resetGame");
-reset.addEventListener("click", resetGame);
-
-
-//Funciton that resets the game once it's game over or the users choose to reset it.
-function resetGame(event) {
+//Event listener to restart the game.
+reset.addEventListener("click", function(event) {
   event.preventDefault();
-  this.textContent = "New Colors";
-  this.style.color = "#396afc";
-  resetStatusofGuess();
+  //Assign new colors to the array of colors.
   colors = createRandomColors(6);
   assignColors();
+
+  //get all color blocks back to the game.
+  displayColorGridBack();
+
+  //Define and display chosen color.
   chosenColor = defineChosenColor(5);
   displayChosenColor(chosenColor);
+
+  //Change the content of the guess' status.
+  resetStatusofGuess();
+
+  //Change the span's text and color.
+  this.textContent = "New Colors";
+  this.style.color = "#396afc";
+});
+
+function displayColorGridBack() {
+  var colorContainers = document.querySelectorAll(".color");
+  for (let index = 0; index < colorContainers.length; index++) {
+    colorContainers[index].parentNode.style.display = "inline-block";
+  }
 }
 
 function resetStatusofGuess() {

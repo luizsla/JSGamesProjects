@@ -1,7 +1,8 @@
 //States colors and chosen colors.
 var colors = createRandomColors(6),
     chosenColor = defineChosenColor(5),
-    reset = document.querySelector("#resetGame");
+    reset = document.querySelector("#resetGame")
+    modes = document.querySelectorAll('.mode');
 
 //Function Calls for the first start.
 (function() {
@@ -11,18 +12,27 @@ var colors = createRandomColors(6),
 })();
 
 //Function that initiates easyMode.
-function initEasyMode() {
+function initEasyMode(ignoreToggleClass = false) {
+  //Verifies if we should toggle or not the class.
+  if (!ignoreToggleClass) {
+    toggleThreeLastColors();
+  }
+
   toggleThreeLastColors();
   colors = createRandomColors(3);
-  assignColors();
+  assignColors(true);
   chosenColor = defineChosenColor(2);
   displayChosenColor(chosenColor);
   resetStatusofGuess();
 }
 
 //Funciton that initiates hardMode.
-function initHardMode() {
-  toggleThreeLastColors();
+function initHardMode(ignoreToggleClass = false) {
+  //Verifies if we should toggle or not the class.
+  if (!ignoreToggleClass) {
+    toggleThreeLastColors();
+  }
+  
   colors = createRandomColors(6);
   assignColors();
   chosenColor = defineChosenColor(5);

@@ -11,9 +11,12 @@ function createRandomColors(nColors) {
 }
 
 //Function that assgns the random colors array to the squares.
-function assignColors() {
+function assignColors(mode = false) {
   var colorContainers = document.querySelectorAll(".color");
-  for (var i = 0; i < colors.length; i++) {
+
+  var length = mode ? 3 : colors.length; 
+
+  for (var i = 0; i < length; i++) {
     colorContainers[i].style.backgroundColor = colors[i];
   }
 }

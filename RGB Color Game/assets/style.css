@@ -70,6 +70,11 @@ main {
   cursor: pointer;
 }
 
+.color:hover {
+  border: 7px solid rgba(255, 255, 255, 0.9);
+  transition: border 0.8s ease-out;
+}
+
 .mode {
   padding: 0.3rem;
 }
@@ -83,6 +88,6 @@ main {
 }
 
 .invisible-block {
-  display: none;
-  transition: display 1s ease-in;
+  display: none !important;
+  transition: display 4s ease-in;
 }

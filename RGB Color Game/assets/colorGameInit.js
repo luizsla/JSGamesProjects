@@ -17,8 +17,7 @@ function initEasyMode(ignoreToggleClass = false) {
   if (!ignoreToggleClass) {
     toggleThreeLastColors();
   }
-
-  toggleThreeLastColors();
+  
   colors = createRandomColors(3);
   assignColors(true);
   chosenColor = defineChosenColor(2);

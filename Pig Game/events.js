@@ -66,8 +66,22 @@ canvas.holdButton.addEventListener("click", holdScoreEvent);
  */
 
 //Evento que inicia um novo game.
-canvas.newGameButton.addEventListener('click', function newGameEvent(event) {
+canvas.newGameButton.addEventListener('click', function(event) {
     event.preventDefault();
 
-    console.log("Hello there!");
+    //Zerando os scores acumulados.
+    scores = [0, 0];
+
+    //Setando active player para inicial.
+    activePlayer = 0;
+
+    //Zerando round score.
+    roundScores = 0;
+
+    //Dice
+    dice = 0;
+
+    resetHTML();
+
+    addCanvasEventListeners();
   });

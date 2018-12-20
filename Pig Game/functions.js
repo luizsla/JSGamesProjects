@@ -48,3 +48,24 @@ function removeCanvasEventListeners() {
   //Removendo o listener do botão de hold score.
   canvas.holdButton.removeEventListener('click', holdScoreEvent);
 }
+
+function addCanvasEventListeners() {
+  canvas.rollDiceButton.addEventListener("click", rollDiceEvent);
+  canvas.holdButton.addEventListener("click", holdScoreEvent);
+}
+
+function resetHTML() {
+  //Zerando todos os scores necessários.
+  document.querySelector("#score-0").textContent = "0";
+  document.querySelector("#current-0").textContent = "0";
+  document.querySelector("#score-1").textContent = "0";
+  document.querySelector("#current-1").textContent = "0";
+
+  //Retirando a classe winner do vencedor.
+  document.querySelector(".player-0-panel").classList.remove('winner');
+  document.querySelector(".player-0-panel").classList.add('active');
+  document.querySelector(".player-1-panel").classList.remove('winner');
+
+  document.querySelector('#name-0').textContent = "Player 1";
+  document.querySelector("#name-1").textContent = "Player 2";
+}

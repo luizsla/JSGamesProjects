@@ -11,10 +11,4 @@ var canvas = {
 (function() {
   //Desaparecendo com a imagem do dado.
   canvas.diceImage.style.display = "none";
-
-  //Zerando todos os scores necessários.
-  document.querySelector("#score-0").textContent = "0";
-  document.querySelector("#current-0").textContent = "0";
-  document.querySelector("#score-1").textContent = "0";
-  document.querySelector("#current-1").textContent = "0";
 })();

@@ -31,8 +31,6 @@ function rollDiceEvent(event) {
   }
 }
 
-canvas.rollDiceButton.addEventListener("click", rollDiceEvent);
-
 /**
  *************************************************************
  ******************** Hold Score Event code ******************
@@ -57,8 +55,6 @@ function holdScoreEvent(event) {
   }
 }
 
-canvas.holdButton.addEventListener("click", holdScoreEvent);
-
 /**
  *************************************************************
  ******************** New Game Event code ********************
@@ -68,6 +64,10 @@ canvas.holdButton.addEventListener("click", holdScoreEvent);
 //Evento que inicia um novo game.
 canvas.newGameButton.addEventListener('click', function(event) {
     event.preventDefault();
+
+    //adicionando eventos para click.
+    canvas.rollDiceButton.addEventListener("click", rollDiceEvent);
+    canvas.holdButton.addEventListener("click", holdScoreEvent);
 
     //Zerando os scores acumulados.
     scores = [0, 0];

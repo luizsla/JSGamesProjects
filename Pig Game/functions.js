@@ -62,8 +62,9 @@ function resetHTML() {
   document.querySelector("#current-1").textContent = "0";
 
   //Retirando a classe winner do vencedor.
-  document.querySelector(".player-0-panel").classList.remove('winner');
-  document.querySelector(".player-0-panel").classList.add('active');
+  let player1 = document.querySelector(".player-0-panel");
+  player1.classList.remove('winner');
+  player1.classList.add('active');
   document.querySelector(".player-1-panel").classList.remove('winner');
 
   document.querySelector('#name-0').textContent = "Player 1";

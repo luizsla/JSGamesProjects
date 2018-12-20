@@ -1,5 +1,5 @@
 //Setup of global variables.
-var scores = [0, 0], roundScores = 0, activePlayer = 0, dice;
+var scores, roundScores, activePlayer, dice;
 var canvas = {
     newGameButton: document.querySelector(".btn-new"),
     rollDiceButton: document.querySelector(".btn-roll"),

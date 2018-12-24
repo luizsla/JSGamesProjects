@@ -10,6 +10,10 @@
 function rollDiceEvent(event) {
   //Prevent event default action.
   event.preventDefault();
+
+  //Setando dado anterior. 
+  var previousDice = dice;
+
   //Setando o valor do dado de forma aleatória.
   dice = getRandomNumber(6);
 
@@ -21,7 +25,7 @@ function rollDiceEvent(event) {
   }
 
   //Se o dado não for igual a 1 adicionar ao score 
-  if (dice != 1) {
+  if (dice != 1 && !(dice == 6 && previousDice == 6)) {
     roundScores += dice;
     setCurrentScore(roundScores);
   } else {
@@ -47,7 +51,7 @@ function holdScoreEvent(event) {
   document.querySelector("#score-" + activePlayer).textContent = scores[activePlayer];
 
   //Verificar se o player ganhou.
-  if (scores[activePlayer] >= 20) {
+  if (scores[activePlayer] >= winningScore) {
     setWinner();
   } else {
     //Mudar de jogador sem resetar o score do jogadoor atual.
@@ -64,6 +68,12 @@ function holdScoreEvent(event) {
 //Evento que inicia um novo game.
 canvas.newGameButton.addEventListener('click', function(event) {
     event.preventDefault();
+
+    winningScore = prompt('Defina o score necessário para ganhar o jogo:');
+
+    if (!winningScore) {
+      winningScore = 20;
+    }
 
     //adicionando eventos para click.
     canvas.rollDiceButton.addEventListener("click", rollDiceEvent);

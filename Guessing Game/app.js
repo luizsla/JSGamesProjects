@@ -1,61 +1,100 @@
 (function() {
-    var questions = [
-      {
-        title: 'Qual é a linguagem de programação mais legal do mundo?',
-        options: [
-            'PHP',
-            'JavaScript',
-            'Java',
-            'C#',
-        ],
-        answer: "JavaScript",
-      },
-      {
-          title: 'Programar é:',
-          options: [
-              'Incrível',
-              'Tedioso',
-              'Fácil',
-              'Difícil',
-          ],
-          answer: 'Incrível'
-      },
-      {
-          title: 'O nome do dono deste jogo é:',
-          options: [
-              'Luiz Eduardo',
-              'Felipe Luiz',
-              'Luiz Paulo',
-              'Luiz Renato',
-          ],
-          answer: 'Luiz Eduardo',
-      },
-    ];
-    var randomNumber = function(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
+    //Vamos declarar a classe customer e a classe game.
+    var Question = function(question, options, answer) {
+        this.question = question;
+        this.options = options;
+        this.answer = answer;
     };
 
-    do {
-        //Antes de mais nada vamos limpar o console de qualquer dado.
-        console.clear();
-        //Vamos escolher primeiro a Pergunta que queremos fazer de forma aleatória
-        var question = questions[randomNumber(0, 2)];
-        //Vamos dar o display das questões no console.
-        console.log('Opções:');
-        //Vamos printar todas as opções no console.
-        question.options.forEach(function(el, index) {
-            console.log(index + 1 + ': ' + el + '.');
+    var Game = function(questions) {
+        this.score = 0;
+        this.questions = questions;
+    };
+
+    //Vamos declarar os métodos da classe game.
+    Game.prototype.getRandomQuestion = function () {
+        return this.questions[Math.floor(Math.random() * this.questions.length)];
+    };
+
+    Game.prototype.increaseScore = function () {
+        this.score++;
+    };
+
+    Game.prototype.decreaseScore = function() {
+        if (this.score > 0) this.score--;
+    };
+
+    Game.prototype.displayScore = function(win) {
+        win ? console.log('Parabéns, você acertou!') : console.log('Não foi dessa vez, tente mais uma!');
+
+        console.log('Sua pontuação atual é: ' + this.score);
+    };
+
+    Game.prototype.playGame = function() {
+        //Vamos pegar uma questão aleatória.
+        var randomQuestion = this.getRandomQuestion();
+        //Vamos printar as questões para o usuário.
+        console.log('Questões:');
+        //Após isso vamos mostrar as opções.
+        randomQuestion.options.forEach(function(el, index) {
+            console.log(index + 1 + ': ' + el);
         });
+        //Vamos printar o alert com a pergunta e capturar a resposta do usuário.
+        var answer = prompt(randomQuestion.question);
 
-        //Depois disso vamos fazer a pergunta.
-        var response = prompt(question.title).trim().toUpperCase();
+        if (answer.toUpperCase().trim() !== 'SAIR') {
+            //Se a resposta for a correta vamos dar um console e aumentar os pontos.
+            if (randomQuestion.answer.toUpperCase() === answer.toUpperCase().trim()) {
+                this.increaseScore();
+                this.displayScore(true);
+            } else {
+                this.decreaseScore();
+                this.displayScore(false);
+            }
 
-        //Vamos ver se a resposta que vem no prompt coincide com a nossa.
-        if (question.answer.toUpperCase().includes(response)) {
-            alert('Parabéns, resposta correta!');
+            //Vamos jogar o jogo de novo.
+            this.playGame();
         } else {
-            console.log('Não foi dessa vez, tente novamente! :(');
+            alert('Sua pontuação final e: ' + this.score);
         }
+    };
 
-    } while (prompt('Deseja jogar novamente (Sim/Não)', 'Sim').toUpperCase().trim() != 'NÃO');
+    //Vamos declarar o array de questões instanciando a questão no array.
+    var questions = [
+        new Question(
+            'Qual é a linguagem de programação mais legal do mundo?',
+            [
+                'PHP',
+                'JavaScript',
+                'Java',
+                'C#',
+            ],
+            "JavaScript"
+        ),
+        new Question(
+            'Programar é:',
+            [
+                'Incrível',
+                'Tedioso',
+                'Fácil',
+                'Difícil',
+            ],
+            'Incrível'
+        ),
+        new Question(
+            'O nome do dono deste jogo é:',
+            [
+                'Luiz Eduardo',
+                'Felipe Luiz',
+                'Luiz Paulo',
+                'Luiz Renato',
+            ],
+            'Luiz Eduardo',
+        ),
+    ];
+
+    //Vamos criar um novo objeto do tipo game.
+    var game = new Game(questions);
+    //Vamos iniciar um jogo.
+    game.playGame();
 })();

@@ -1,0 +1,31 @@
+<% include ../partials/header %>
+    <main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-secondary text-white">
+                            <h1 class="card-title text-center h2 mb-0">Register to YelpCamp</h1>
+                        </div>
+
+                        <div class="card-body text-muted">
+                            <form action="/register" method="post">
+                                <div class="form-group">
+                                    <label for="username"><strong>Username:</strong></label>
+                                    <input type="text" name="username" id="username" class="form-control">
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="password"><strong>Password:</strong></label>
+                                    <input type="password" name="password" id="password" class="form-control">
+                                </div>
+                            
+                                <button type="submit" class="btn btn-info btn-block btn-lg">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </main>
+<% include ../partials/footer %>

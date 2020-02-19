@@ -1,0 +1,20 @@
+<% include ../partials/header %>
+    <div class="container">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="text-center">Editing Comment</h1>
+            </div>
+        </div>
+
+        <form action="/campgrounds/<%= campground_id %>/comments/<%= comment._id %>" method="post">
+            <input type="hidden" name="_method" value="put">
+
+            <div class="form-group">
+                <label for="comment-text">Text:</label>
+                <textarea class="form-control" name="comment" id="comment-text" rows="10"><%= comment.text %></textarea>
+            </div>
+
+            <button class="btn btn-primary btn-block">Edit comment</button>
+        </form>
+    </div>
+<% include ../partials/footer %>

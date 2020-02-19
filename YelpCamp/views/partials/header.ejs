@@ -37,11 +37,11 @@
 							<a class="nav-item nav-link" href="/campgrounds">Campgrounds</a>
 
 							<% if (!user) { %>
-								<a class="nav-item nav-link" href="/login">Login</a>
-								<a class="nav-item nav-link" href="/register">Sign Up</a>
+								<a class="nav-item nav-link" href="/auth/login">Login</a>
+								<a class="nav-item nav-link" href="/auth/register">Sign Up</a>
 							<% } else { %>
 								<a class="nav-item nav-link disabled">Logged as <%= user.username %></a>
-								<a class="nav-item nav-link" href="/logout">Logout</a>
+								<a class="nav-item nav-link" href="/auth/logout">Logout</a>
 							<% } %>
 						</div>
 					</div>

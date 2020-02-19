@@ -21,31 +21,56 @@
                         <img src="<%= campground.image %>" class="card-img-top" alt="Picture of the campground to be booked">
 
                         <div class="card-body">
-                            <h2 class="card-title"><a href="#"><%= campground.name %></a></h2>
+                            <h2 class="card-title d-flex justify-content-between">
+                                <a href="#"><%= campground.name %></a>
+
+                                <%# Showing edit and delete buttons only for the user who's registered the campground %> 
+                                <% if (user && campground.author.id.equals(user._id)) { %>
+                                    <span>
+                                        <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-outline-warning">Edit</a>
+                                        <form action="/campgrounds/<%= campground._id %>" class="d-inline" method="post">
+                                            <input type="hidden" name="_method" value="delete">
+                                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                        </form>
+                                    </span>
+                                <% } %>
+                            </h2>
 
                             <p class="card-subtitle text-muted mb-3">$ 9.00/night</p>
 
-                            <p class="card-text lead"><%= campground.description %></p>
+                            <p class="card-text lead"><%= campground.description %></p>  
                         </div>
 
-                        <% if (campground.comments.length > 0) { %>
-                            <div class="card-footer bg-transparent">
-                                <p class="lead d-flex justify-content-between align-items-center">
-                                    <span>Comments:</span>
-                                    <a href="/campgrounds/<%= campground._id %>/comments/create" class="card-link btn btn-success">Add comment</a>
-                                </p>
+                        <div class="card-footer bg-transparent">
+                            <p class="lead d-flex justify-content-between align-items-center">
+                                <span>Comments:</span>
+                                <a href="/campgrounds/<%= campground._id %>/comments/create" class="card-link btn btn-success">Add comment</a>
+                            </p>
 
-
+                            <% if (campground.comments.length > 0) { %>
                                 <ul class="list-group list-group-flush">
                                     <% campground.comments.forEach(comment => { %>
                                         <li class="list-group-item">
-                                            <strong><%= comment.author %></strong>:<br>
-                                            <%= comment.text %>
+                                            <div><strong><%= comment.author.username %></strong>:</div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span><%= comment.text %></span>
+                                                
+                                                <span>
+                                                    <a href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit" class="btn btn-outline-warning">edit</a>
+
+                                                    <form action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>" method="post" class="d-inline">
+                                                        <input type="hidden" name="_method" value="delete">
+                                                        <button type="submit" class="btn btn-outline-danger">delete</button>
+                                                    </form>
+                                                </span>
+                                            </div>
                                         </li>
                                     <% }) %>
                                 </ul>
-                            </div>
-                        <% } %>
+                            <% } else { %>
+                                <p class="text-center lead">Make your first comment</p>
+                            <% } %>
+                        </div>
                     </div>
                 </div>
             </div>

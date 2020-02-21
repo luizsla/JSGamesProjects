@@ -28,7 +28,7 @@ router.get("/create", isLoggedIn, (req, res) => res.render("campgrounds/create",
  */
 router.post("/", isLoggedIn, (req, res) => {
 	//Recebendo os valores via post Request
-	let newCampground = {
+	const newCampground = {
 		name: req.body.campground.name,
 		image: req.body.campground.image_url,
 		description: req.body.campground.description,
@@ -37,11 +37,18 @@ router.post("/", isLoggedIn, (req, res) => {
 			username: req.user.username,
 		},
 	};
-	
-	//Instanciando um novo modelo
-	newCampground = new Campground(newCampground);
+
 	//Salvando o novo modelo e retornando a página de campgrounds
-	newCampground.save().then(() => res.redirect('/campgrounds')).catch(err => console.log('Sorry, try again!'));
+	Campground
+		.create(newCampground)
+		.then((newlyCreatedCampground) => {
+			req.flash('success', `Created campgrond ${newlyCreatedCampground.name}!`);
+			res.redirect('/campgrounds');
+		})
+		.catch(() => {
+			req.flash('error', 'It was not possible to create this campground, please, try again!');
+			res.redirect('back');
+		});
 });
 
 /**
@@ -50,10 +57,20 @@ router.post("/", isLoggedIn, (req, res) => {
 router.get("/:id", (req, res) => {
 	const id = req.params.id;
 	
-	Campground.findById(id).populate('comments').then(campground => res.render('campgrounds/show', {
-		campground: campground,
-		title: `Campground ${campground.name}`,
-	}));
+	Campground
+		.findById(id)
+		.populate('comments')
+		.then(campground => {
+			if (!campground) throw new Error('Campground not found!');
+
+			res.render('campgrounds/show', {
+				campground: campground,
+				title: `Campground ${campground.name}`,
+			});
+		}).catch(err => {
+			req.flash('error', err.message);
+			res.redirect('back');
+		});
 });
 
 /**
@@ -62,10 +79,19 @@ router.get("/:id", (req, res) => {
 router.get('/:id/edit', [isLoggedIn, verifyCampgroundUserOwnership], (req, res) => {
 	const id = req.params.id;
 
-	Campground.findById(id).then(campground => res.render('campgrounds/edit', {
-		campground: campground,
-		title: `Edit campground ${campground.name}`,	
-	}));
+	Campground
+		.findById(id)
+		.then(campground => {
+			if (!campground) throw new Error('Campground not found!');
+
+			res.render('campgrounds/edit', {
+				campground: campground,
+				title: `Edit campground ${campground.name}`,	
+			});
+		}).catch(err => {
+			req.flash('error', err.message);
+			res.redirect('back');
+		});
 });
 
 /**
@@ -80,10 +106,17 @@ router.put('/:id', [isLoggedIn, verifyCampgroundUserOwnership], (req, res) => {
 		image: req.body.campground.image_url,
 		description: req.body.campground.description,
 	};
+
 	//Finding and updating the campground
-	Campground.findByIdAndUpdate(id, newCampgroundData).then(newlyUpdatedCampground => {
-		res.redirect('/campgrounds');
-	}).catch(err => console.log(err));
+	Campground
+		.findByIdAndUpdate(id, newCampgroundData)
+		.then(newlyUpdatedCampground => {
+			req.flash('info', `Campground ${newlyUpdatedCampground.name} was successfully updated`);
+			res.redirect('/campgrounds');
+		}).catch(() => {
+			req.flash('error', 'It was not possible to update this campground, please try again!');
+			res.redirect('back');
+		});
 });
 
 /**
@@ -92,7 +125,16 @@ router.put('/:id', [isLoggedIn, verifyCampgroundUserOwnership], (req, res) => {
 router.delete('/:id', [isLoggedIn, verifyCampgroundUserOwnership], (req, res) => {
 	const id = req.params.id;
 
-	Campground.findByIdAndDelete(id).then(() => res.redirect('/campgrounds'));
+	Campground
+		.findByIdAndDelete(id)
+		.then(deletedCampground => {
+			req.flash('info', `Deleted campground ${deletedCampground.name}.`);
+			res.redirect('/campgrounds');
+		})
+		.catch(() => {
+			req.flash('error', 'It was not possible to delete object');
+			res.redirect('back');
+		});
 });
 
 

@@ -1,18 +1,16 @@
 const Campground = require('./../models/campground');
 
-const verifyCampgroundUserOwnership = (req, res, next) => {
+module.exports = (req, res, next) => {
     const id = req.params.id;
     const userId = req.user._id;
 
     Campground.findById(id).then(campground => {
+        if (!campground) throw new Error('Campground not found!');
+        
         //If the campground belongs to the user that is trying to edit/modify it they should be allowed
-        if (campground.author.id.equals(userId)) {
-            next();
-        } else {
-            res.redirect('back');
-        }        
-    }).catch(err => res.redirect('back'));
+        campground.author.id.equals(userId) ? next() : res.redirect('back');        
+    }).catch(err => {
+        req.flash('error', err.message);
+        res.redirect('back');
+    });
 };
-
-
-module.exports = verifyCampgroundUserOwnership;

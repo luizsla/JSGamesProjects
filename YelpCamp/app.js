@@ -1,5 +1,5 @@
 //Carregndo os node_modules da aplicação.
-const [express, bodyParser, mongoose, passport, localStrategy, methodOverride] = [require('express'), require('body-parser'), require('mongoose'), require('passport'), require('passport-local'), require('method-override')];
+const [express, bodyParser, mongoose, passport, localStrategy, methodOverride, flash] = [require('express'), require('body-parser'), require('mongoose'), require('passport'), require('passport-local'), require('method-override'), require('connect-flash')];
 //Loading the application routes.
 const [indexRoutes, authRoutes, campgroundRoutes, commentsRoutes] = [require('./routes/index'), require('./routes/auth'), require('./routes/campgrounds'), require('./routes/comments')];
 //Carregando o modelo do usuário para ser usado pelo passport.
@@ -38,9 +38,18 @@ app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+//Setting up connect-flash as default flash messages module.
+app.use(flash());
+
 //Injecting the user in all responses.
 app.use((req, res, next) => {
 	res.locals.user = req.user;
+	res.locals.flashMessages = {
+		success: req.flash('success'),
+		danger: req.flash('error'),
+		info: req.flash('info'),
+		warning: req.flash('warning'),
+	};
 	next();
 });
 
